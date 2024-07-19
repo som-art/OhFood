@@ -1,0 +1,191 @@
+.parent {
+  overflow: hidden;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s;
+}
+
+.parent:hover,
+.parent:focus {
+  -ms-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+  color: #000102;
+}
+
+.hover-underline-animation:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000305;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+.paginationBox {
+  display: flex;
+  justify-content: center;
+  margin: 6vmax;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.page-item {
+  background-color: rgb(255, 255, 255);
+  list-style: none;
+  border: 1px solid rgba(0, 0, 0, 0.178);
+  padding: 1vmax 1.5vmax;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.page-item:first-child {
+  border-radius: 5px 0 0 5px;
+}
+
+.page-item:last-child {
+  border-radius: 0 5px 5px 0;
+}
+.page-link {
+  text-decoration: none;
+  font: 800 0.7vmax ;
+  color: rgb(80, 80, 80);
+  transition: all 0.3s;
+}
+
+.page-item:hover {
+  background-color: rgb(230, 230, 230);
+}
+
+.page-item:hover .page-link {
+  color: rgb(0, 0, 0);
+}
+
+.pageItemActive {
+  background-color: rgb(37, 37, 36);
+}
+
+.pageLinkActive {
+  color: white;
+}
+
+.filterBox {
+  width: 10vmax;
+}
+
+.categoryBox {
+  padding: 0%;
+}
+
+.category-link {
+  list-style: none;
+  color: rgba(0, 0, 0, 0.61);
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.category-link:hover {
+  color: rgb(10, 10, 10);
+}
+
+.loading {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: grid;
+  place-items: center;
+  max-width: 100%;
+}
+
+.loading > div {
+  width: 10vmax;
+  height: 10vmax;
+  border-bottom: 5px solid rgba(0, 0, 0, 0.719);
+
+  border-radius: 50%;
+
+  animation: loadingRotate 800ms linear infinite;
+}
+
+@keyframes loadingRotate {
+  to {
+    transform: rotateZ(-360deg);
+  }
+}
+
+.MuiStepConnector-line {
+  display: none !important;
+}
+
+.MuiStepConnector-root {
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.349);
+}
+
+.MuiStepConnector-active,
+.MuiStepConnector-completed {
+  background-color: tomato;
+}
+
+.lineChart {
+  width: 80%;
+  margin: auto;
+}
+
+.doughnutChart {
+  width: 30vmax;
+  margin: auto;
+}
+
+#createProductFormFile > input{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#createProductFormFile > input::file-selector-button {
+  cursor: pointer;
+  width: 150px;
+  z-index: 2;
+  height: 50px;
+  border: none;
+  margin-right: 30px;
+  transition: all 0.5s;
+  padding: 10px;
+  color: rgba(0, 0, 0, 1);
+  background-color: rgb(188, 188, 188);
+}
+
+#createProductFormFile > input::file-selector-button:hover {
+  background-color: rgb(235, 235, 235);
+}
+
+#createProductFormImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#createProductFormImage > img {
+  width: 300px;
+}
