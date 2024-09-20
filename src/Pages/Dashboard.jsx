@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import { useHistory } from "react-router-dom";
-import 'chart.js/auto';
-import { Chart } from 'react-chartjs-2';
+import "chart.js/auto";
+import { Chart } from "react-chartjs-2";
 import { useSelector, useDispatch } from "react-redux";
 import { getAdminProduct } from "../actions/productAction";
 import { getAllOrders } from "../actions/orderAction";
@@ -24,9 +24,12 @@ const Dashboard = () => {
 
   let outOfStock = 0;
 
+  console.log("Dashboard");
+
   products &&
     products.forEach((item) => {
-      if (item.Stock === 0) {
+      //console.log(item.stock);
+      if (item.stock <= 0) {
         outOfStock += 1;
       }
     });
@@ -67,49 +70,66 @@ const Dashboard = () => {
   };
 
   return (
-      <>
-        <div className=" bg-white pb-20">
-            <Navbar />
-            <div className=" w-full grid grid-cols-[1fr_5fr]">
-            <Sidebar />
+    <>
+      <div className=" bg-white pb-20">
+        <Navbar />
+        <div className=" w-full grid grid-cols-[1fr_5fr]">
+          <Sidebar />
 
-            <div className=" border-l-2 border-slate-300 py-12 mt-20">
-                <div className=" text-center w-[50%] p-6 mx-auto text-3xl">Dashboard</div>
-
-                <div className=" m-8">
-                    <div className=" flex justify-center">
-                        <p className=" bg-blue-400 text-white text-xl text-center p-6 w-full mx-8">
-                        Total Amount <br /> ₹{totalAmount}
-                        </p>
-                    </div>
-                    <div className=" flex justify-center">
-                        <div onClick={() => {history.push("/admin/products")}} className=" text-2xl text-center bg-red-400 p-6 m-6 w-40 h-40 rounded-full flex flex-col justify-center items-center">
-                            <p>Products</p>
-                            <p>{products && products.length}</p>
-                        </div>
-                        <div onClick={() => {history.push("/admin/orders")}} className=" text-2xl text-center bg-yellow-400 p-6 m-6 w-40 h-40 rounded-full flex flex-col justify-center items-center">
-                            <p>Orders</p>
-                            <p>{orders && orders.length}</p>
-                        </div>
-                        <div onClick={() => {history.push("/admin/users")}} className=" text-2xl text-center bg-blue-400 p-6 m-6 w-40 h-40 rounded-full flex flex-col justify-center items-center">
-                            <p>Users</p>
-                            <p>{users && users.length}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="lineChart">
-                    <Chart type="line" data={lineState} />
-                </div>
-
-                <div className="doughnutChart">
-                    <Chart type="doughnut" data={doughnutState} />
-                </div>
+          <div className=" border-l-2 border-slate-300 py-12 mt-20">
+            <div className=" text-center w-[50%] p-6 mx-auto text-3xl">
+              Dashboard
             </div>
+
+            <div className=" m-8">
+              <div className=" flex justify-center">
+                <p className=" bg-blue-400 text-white text-xl text-center p-6 w-full mx-8">
+                  Total Amount <br /> ₹{totalAmount}
+                </p>
+              </div>
+              <div className=" flex justify-center">
+                <div
+                  onClick={() => {
+                    history.push("/admin/products");
+                  }}
+                  className=" text-2xl text-center bg-red-400 p-6 m-6 w-40 h-40 rounded-full flex flex-col justify-center items-center"
+                >
+                  <p>Products</p>
+                  <p>{products && products.length}</p>
+                </div>
+                <div
+                  onClick={() => {
+                    history.push("/admin/orders");
+                  }}
+                  className=" text-2xl text-center bg-yellow-400 p-6 m-6 w-40 h-40 rounded-full flex flex-col justify-center items-center"
+                >
+                  <p>Orders</p>
+                  <p>{orders && orders.length}</p>
+                </div>
+                <div
+                  onClick={() => {
+                    history.push("/admin/users");
+                  }}
+                  className=" text-2xl text-center bg-blue-400 p-6 m-6 w-40 h-40 rounded-full flex flex-col justify-center items-center"
+                >
+                  <p>Users</p>
+                  <p>{users && users.length}</p>
+                </div>
+              </div>
             </div>
+
+            <div className="lineChart">
+              <Chart type="line" data={lineState} />
+            </div>
+
+            <div className="doughnutChart">
+              <Chart type="doughnut" data={doughnutState} />
+            </div>
+          </div>
         </div>
-        <Footer />
-    </> 
+      </div>
+      <Footer />
+    </>
   );
 };
 

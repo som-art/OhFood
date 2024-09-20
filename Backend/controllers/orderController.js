@@ -1,6 +1,6 @@
 const Order = require("../models/Order");
 const Product = require("../models/Product");
-const ErrorHandler = require("../utils/errorhandler");
+const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const Razorpay = require("razorpay");
 

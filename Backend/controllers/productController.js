@@ -51,12 +51,13 @@ exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
 //Create Products -- admin only
 exports.createProduct = catchAsyncErrors(async (req, res, next) => {
   let images = [];
-
+  console.log(req.body.category);
   if (typeof req.body.images === "string") {
     images.push(req.body.images);
   } else {
     images = req.body.images;
   }
+  //console.log(images[0]);
 
   const imagesLinks = [];
   for (let i = 0; i < images.length; i++) {
@@ -74,7 +75,7 @@ exports.createProduct = catchAsyncErrors(async (req, res, next) => {
   req.body.user = req.user.id;
 
   const product = await Product.create(req.body);
-
+  console.log("Created");
   res.status(201).json({
     success: true,
     product,
