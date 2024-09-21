@@ -8,8 +8,9 @@ const cors = require("cors");
 const errorMiddleware = require("./middleware/error");
 const connectDatabase = require("./config/database");
 
+console.log(__dirname + "/config/config.env");
 // Load environment variables
-dotenv.config({ path: "config/config.env" });
+dotenv.config({ path: __dirname + "/config/config.env" });
 
 // Create Express app
 const app = express();
@@ -53,9 +54,7 @@ cloudinary.config({
 
 // Start server
 const server = app.listen(process.env.PORT || 5000, () => {
-  console.log(
-    `Server is working on http://localhost:${process.env.PORT || 5000}`
-  );
+  console.log(`Server is working on http://localhost:${process.env.PORT}`);
 });
 
 // Unhandled Promise Rejection
