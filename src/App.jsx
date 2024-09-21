@@ -37,7 +37,7 @@ import ProcessOrder from "./pages/ProcessOrder";
 import UsersList from "./pages/UsersList";
 import UpdateUser from "./pages/UpdateUser";
 import axios from "axios";
-axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
 axios.defaults.withCredentials = true;
 
 function App() {
