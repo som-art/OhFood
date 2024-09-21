@@ -47,8 +47,9 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
   res.cookie("token", null, {
     expires: new Date(Date.now()),
     httpOnly: true,
-    domain: process.env.NODE_ENV === "dev" ? "" : "onrender.com",
-    sameSite: "lax",
+    domain: process.env.NODE_ENV === "dev" ? "" : ".onrender.com",
+    sameSite: "none",
+    secure: process.env.NODE_ENV === "dev" ? false : true,
   });
 
   res.status(200).json({
