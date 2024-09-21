@@ -16,7 +16,12 @@ dotenv.config({ path: __dirname + "/config/config.env" });
 const app = express();
 
 // Middleware
-app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "https://ohfood-frontend.onrender.com"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -34,6 +39,10 @@ app.use("/api/v1", order);
 
 // Error middleware
 app.use(errorMiddleware);
+
+app.get("/ping", (_, res) => {
+  res.send("Pong");
+});
 
 // Handling Uncaught Exception
 process.on("uncaughtException", (err) => {
