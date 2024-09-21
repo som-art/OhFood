@@ -1,28 +1,68 @@
 const express = require("express");
-const errorMiddleware = require("./middleware/error");
+const dotenv = require("dotenv");
+const cloudinary = require("cloudinary");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
-// const path = require("path");
+const errorMiddleware = require("./middleware/error");
+const connectDatabase = require("./config/database");
 
+// Load environment variables
+dotenv.config({ path: "config/config.env" });
+
+// Create Express app
 const app = express();
 
+// Middleware
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
 
-//Route Imports
+// Route Imports
 const product = require("./routes/productRoute");
 const user = require("./routes/userRoute");
 const order = require("./routes/orderRoute");
+
+// Use routes
 app.use("/api/v1", product);
 app.use("/api/v1", user);
 app.use("/api/v1", order);
 
-//middleware for errors
+// Error middleware
 app.use(errorMiddleware);
 
-module.exports = app;
+// Handling Uncaught Exception
+process.on("uncaughtException", (err) => {
+  console.log(`Error: ${err.message}`);
+  console.log(`Shutting down the server due to Uncaught Exception`);
+  process.exit(1);
+});
+
+// Connect to Database
+connectDatabase();
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+// Start server
+const server = app.listen(process.env.PORT || 5000, () => {
+  console.log(
+    `Server is working on http://localhost:${process.env.PORT || 5000}`
+  );
+});
+
+// Unhandled Promise Rejection
+process.on("unhandledRejection", (err) => {
+  console.log(`Error: ${err.message}`);
+  console.log("Shutting down the server due to Unhandled Promise Rejection");
+  server.close(() => {
+    process.exit(1);
+  });
+});
